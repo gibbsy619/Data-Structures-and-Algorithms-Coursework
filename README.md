@@ -18,5 +18,5 @@ Run program on command prompt using following command "python huffman_test.py" i
 
 ## Details
 Author: Adam Gilbert
-Licence: https://github.com/gibbsy37/CA3/blob/main/LICENSE
+Licence: https://github.com/gibbsy619/Data-Structures-and-Algorithms-Coursework/blob/main/LICENSE
 Link to source: https://github.com/gibbsy37/CA3
