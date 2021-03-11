@@ -7,7 +7,6 @@ def get_characters(text):
     for character in text:
         if character not in characters:
             characters.append(character)
-    print("2")
     return characters
 
 
@@ -17,7 +16,6 @@ def get_frequencies(text):
     for i in text:
         dictionary_of_frequencies[i] = dictionary_of_frequencies.get(i, 0) + 1
     frequency = list(dictionary_of_frequencies.values())
-    print("1")
     return frequency
 
 
@@ -26,8 +24,6 @@ def encoded_huffman_data(inputted_string, codes):
     encoded_string = ""
     for character in inputted_string:
         encoded_string += codes[character]
-
-    print("6")
     return encoded_string
 
 
@@ -40,7 +36,6 @@ def pad_encoded_text(encoded_text):
     # then adds this to front of string to tell the decoder later how many zeros to remove from back of string
     padded_info = "{0:08b}".format(extra_padding)
     encoded_text = padded_info + encoded_text
-    print("7")
     return encoded_text
 
 
@@ -52,7 +47,6 @@ def remove_padding(padded_encoded_text):
     padded_encoded_text = padded_encoded_text[8:]
     encoded_text = padded_encoded_text[:-1 * extra_padding]  # removes the padding from back of string
 
-    print("8")
     return encoded_text
 
 
@@ -71,10 +65,6 @@ class HuffmanCoding:
             self.right = right  # node right of current node
             self.direction = ''  # tree direction (0/1)
 
-    # utility function to print huffman
-    # codes for all symbols in the newly
-    # created Huffman tree
-
     # traverses the Huffman Tree to create a character code for each character
     def make_codes(self, node, code='', codes={}):
         character_code = code + str(node.direction)  # cumulative code for how far the tree has been traversed
@@ -86,16 +76,12 @@ class HuffmanCoding:
         # if node reaches a node with a character inside, display character_code
         if not node.left and not node.right:
             codes[node.character] = character_code
-
-        print("5")
         return codes
 
     # creates nodes for each character and their respective frequencies
     def get_huffman_tree_nodes(self, frequency, characters, nodes=[]):
         for x in range(len(characters)):
             nodes.append(self.Node(frequency[x], characters[x]))
-
-        print("3")
         return nodes
 
     # sorts each characters node by frequency to merge them together and create the root node
@@ -118,7 +104,6 @@ class HuffmanCoding:
             nodes.remove(left)
             nodes.remove(right)
             nodes.append(parent_node)  # only parent node stays in tree
-        print("4")
         return nodes
 
     # goes through all the bits in the file until a concatenated code matches a code in the codes dictionary
@@ -132,7 +117,6 @@ class HuffmanCoding:
                     found_character = character
                     decoded_file += found_character
                     character_bits = ""
-        print("9")
         return decoded_file
 
     # combines all compressing functions above to turn a text file into a compression binary file
@@ -151,7 +135,6 @@ class HuffmanCoding:
             self.codes = self.make_codes(merged_nodes[0])
 
             encoded_text = encoded_huffman_data(text, self.codes)
-            # print(encoded_text)
 
             padded_encoded_text = pad_encoded_text(encoded_text)
             # BitArray function to create an array of bits to be sent to a binary file
@@ -172,8 +155,6 @@ class HuffmanCoding:
             bit_string_array = BitArray(file.read())
             # gets the array back a a string of binary digits
             bit_string = bit_string_array.bin
-
-            # print(bit_string)
 
             encoded_text = remove_padding(bit_string)
 
@@ -284,11 +265,11 @@ class HuffmanCoding:
 # path9 = "xaa2.txt"
 # binary_file9 = "rs.13.bin"
 # output_file9 = "rs.13_decoded_file.txt"
-# 
+#
 # test9 = HuffmanCoding(path9)
-# 
+#
 # encoded_path9 = test9.compress(path9, binary_file9)
 # print("Compressed file path: " + encoded_path9)
-# 
+#
 # decompressed_path9 = test9.decompress(encoded_path9, output_file9)
 # print("Decompressed file path: " + decompressed_path9)
